@@ -1,0 +1,7 @@
+/bm_bootloader/EWARM/*
+!/bm_bootloader/EWARM/bm_bootloader.ewp
+!/bm_bootloader/EWARM/bm_bootloader.ewd
+!/bm_bootloader/EWARM/Project.eww
+!/bm_bootloader/EWARM/startup_stm32f103xe.s
+!/bm_bootloader/EWARM/stm32f103xe_flash.icf
+!/bm_bootloader/EWARM/stm32f103xe_sram.icf
