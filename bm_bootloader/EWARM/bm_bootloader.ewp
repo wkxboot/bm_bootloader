@@ -358,11 +358,10 @@
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/include</state>
                     <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-                    <state>$PROJ_DIR$/../Src/flash_if</state>
+                    <state>$PROJ_DIR$/../Src/board</state>
                     <state>$PROJ_DIR$/../Src/tasks</state>
                     <state>$PROJ_DIR$/../Src/led</state>
                     <state>$PROJ_DIR$/../Src/flash_utils</state>
-                    <state>$PROJ_DIR$/../Src/flash_if</state>
                     <state>$PROJ_DIR$/../Src/tm1629a</state>
                     <state>$PROJ_DIR$/../Src/debug/log</state>
                     <state>$PROJ_DIR$/../Src/debug/log/SEGGER_RTT_V612j/RTT</state>
@@ -1096,19 +1095,10 @@
             <group>
                 <name>tasks</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Src\tasks\bootloader_env.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Src\tasks\bootloader_task.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Src\tasks\common.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Src\tasks\main.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Src\tasks\menu.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\Src\tasks\ymodem.c</name>
                 </file>
             </group>
             <group>

@@ -3,11 +3,10 @@
 #include "main.h"
 #include "stdbool.h"
 #include "cmsis_os.h"
-#include "led.h"
 #include "flash_utils.h"
 #include "log.h"
 #define  LOG_MODULE_LEVEL    LOG_LEVEL_DEBUG
-#define  LOG_MODULE_NAME     "[log]"
+#define  LOG_MODULE_NAME     "[flash_utils]"
 
 /*名称：flash_utils_init
 * 功能：flash工具初始化
