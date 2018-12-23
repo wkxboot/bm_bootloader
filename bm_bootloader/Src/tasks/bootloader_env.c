@@ -1,7 +1,4 @@
-#include "FreeRTOS.h"
-#include "task.h"
 #include "main.h"
-#include "cmsis_os.h"
 #include "stdbool.h"
 #include "flash_utils.h"
 #include "bootloader_env.h"
@@ -35,14 +32,18 @@ static user_application_func_t user_application_func;
 void bootloader_boot_user_application()
 {
   uint32_t user_application_msp;
+  uint32_t user_app_addr;
+  
   /*初始化栈指针*/
   user_application_msp = *(uint32_t*)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_USER_APPLICATION_OFFSET);
-  __set_MSP(user_application_msp);
   
   /*指定用户应用地址*/
-  user_application_func = (user_application_func_t)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_USER_APPLICATION_OFFSET + 4);
+  user_app_addr = *(uint32_t *)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_USER_APPLICATION_OFFSET + 4);
+  user_application_func = (user_application_func_t)user_app_addr;
   log_debug("bootloader boot user app --> addr:0x%X stack:0x%X....\r\n",user_application_func,user_application_msp);
   /*跳转*/
+  __disable_irq();
+  __set_MSP(user_application_msp);
   user_application_func();  
   
   while(1);
@@ -73,7 +74,7 @@ void bootloader_reset()
 void bootloader_read_main_env(bootloader_env_t *env)
 {
   int rc;
-  rc = flash_utils_read((char *)&env,BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_ENV_ADDR_OFFSET,sizeof(bootloader_env_t));
+  rc = flash_utils_read((char *)env,BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_ENV_ADDR_OFFSET,sizeof(bootloader_env_t));
   if(rc != 0){
   log_error("bootloader read main env addr:% err.\r\n",BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_ENV_ADDR_OFFSET);  
   bootloader_reset();  
@@ -110,7 +111,7 @@ void bootloader_write_main_env(bootloader_env_t *env)
 void bootloader_read_backup_env(bootloader_env_t *env)
 {
   int rc;
-  rc = flash_utils_read((char *)&env,BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_ENV_BACKUP_ADDR_OFFSET,sizeof(bootloader_env_t));
+  rc = flash_utils_read((char *)env,BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_ENV_BACKUP_ADDR_OFFSET,sizeof(bootloader_env_t));
   if(rc != 0){
   log_error("bootloader read backup env addr:% err.\r\n",BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_ENV_BACKUP_ADDR_OFFSET);  
   bootloader_reset();  

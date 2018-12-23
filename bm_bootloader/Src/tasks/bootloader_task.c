@@ -1,7 +1,4 @@
-#include "FreeRTOS.h"
-#include "task.h"
 #include "main.h"
-#include "cmsis_os.h"
 #include "stdbool.h"
 #include "led.h"
 #include "flash_utils.h"
@@ -16,8 +13,6 @@
 
 
 
-osThreadId bootloader_task_handle;
-
 /*判断env是否经过了修复*/
 static bool env_repair = false;
 /*环境参数*/
@@ -29,7 +24,7 @@ void bootloader_task(void const * argument)
 {
 
  /*等待显示芯片上电稳定*/;
- osDelay(200);
+ //osDelay(200);
  led_display_init();
  
  led_display_temperature_unit(LED_DISPLAY_ON);
@@ -53,10 +48,9 @@ void bootloader_task(void const * argument)
  led_display_refresh();
  flash_utils_init();
  
- log_debug("\r\n*******************************************************\r\n");
- log_debug("\r\n* WKXBOOT BOOTLOADER VER:%s        *\r\n",BOOTLOADER_VERSION);
- log_debug("\r\n* build date:%s time:%s            *\r\n",__DATE__,__TIME__);  
- log_debug("\r\n*******************************************************\r\n");
+ log_debug("\r\n*************************************************************\r\n");
+ log_debug("\r\n  BOOTLOADER VER:%s      build date:%s %s \r\n",BOOTLOADER_VERSION);
+ log_debug("\r\n*************************************************************\r\n");
 
  /*解除写保护*/
  if(flash_utils_write_protection_config(FLASH_UTILS_WR_PROTECTION_NONE) != 0){  

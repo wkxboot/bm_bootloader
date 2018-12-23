@@ -1,8 +1,5 @@
-#include "FreeRTOS.h"
-#include "task.h"
 #include "main.h"
 #include "stdbool.h"
-#include "cmsis_os.h"
 #include "flash_utils.h"
 #include "log.h"
 #define  LOG_MODULE_LEVEL    LOG_LEVEL_DEBUG
