@@ -45,7 +45,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "log.h"
-#include "bootloader_task.h"
+#include "bootloader.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -110,7 +110,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
- bootloader_task((void *)0);
+  bootloader();
   }
   /* USER CODE END 3 */
 

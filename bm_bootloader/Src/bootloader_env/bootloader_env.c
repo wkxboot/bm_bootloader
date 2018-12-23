@@ -37,10 +37,12 @@ void bootloader_boot_user_application()
   /*初始化栈指针*/
   user_application_msp = *(uint32_t*)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_USER_APPLICATION_OFFSET);
   
-  /*指定用户应用地址*/
+  /*获取用户APP地址和栈指针*/
   user_app_addr = *(uint32_t *)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_USER_APPLICATION_OFFSET + 4);
   user_application_func = (user_application_func_t)user_app_addr;
   log_debug("bootloader boot user app --> addr:0x%X stack:0x%X....\r\n",user_application_func,user_application_msp);
+  /*等待日志输出完毕*/
+  HAL_Delay(500);
   /*跳转*/
   __disable_irq();
   __set_MSP(user_application_msp);
@@ -58,8 +60,9 @@ void bootloader_reset()
 {
   uint32_t reset_later = BOOTLOADER_RESET_LATER_TIME;
   while(reset_later > 0){
-  log_error("bootloader will reset %ds later.\r\n",reset_later); 
+  log_error("bootloader will reset %dS later.\r\n",reset_later); 
   reset_later --;
+  HAL_Delay(1000);
   }  
   NVIC_SystemReset();
 }
