@@ -19,9 +19,10 @@ static bootloader_env_t main_env,backup_env;
 /*任务*/
 void bootloader(void)
 {
- log_debug("\r\n*************************************************************\r\n");
- log_debug("\r\n  BOOTLOADER VER:%s      build date:%s %s \r\n",BOOTLOADER_VERSION,__DATE__,__TIME__);
- log_debug("\r\n*************************************************************\r\n");
+ log_debug("\r\n*************************************************************\r\n"
+           "\r\n  BOOTLOADER VER:%s     build date:%s %s \r\n"
+           "\r\n*************************************************************\r\n"
+           ,BOOTLOADER_VERSION,__DATE__,__TIME__);
  
  /*等待显示芯片上电稳定*/;
  HAL_Delay(200);
@@ -48,7 +49,7 @@ void bootloader(void)
  led_display_refresh();
  flash_utils_init();
  
-  log_error("bootloader disable write protect...\r\n");  
+  log_debug("bootloader disable write protect...\r\n");  
   /*解除写保护*/
   if(flash_utils_write_protection_config(FLASH_UTILS_WR_PROTECTION_NONE) != 0){  
   log_error("err.\r\n");  

@@ -168,7 +168,10 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+uint32_t log_time()
+{ 
+return HAL_GetTick();
+}
 /* USER CODE END 4 */
 
 /**
