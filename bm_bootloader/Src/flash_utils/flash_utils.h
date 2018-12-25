@@ -3,9 +3,8 @@
 #include "stm32f1xx_hal.h"
 
 
-#define  USER_FLASH_END_ADDRESS         0x8003FFFC
+#define  USER_FLASH_END_ADDRESS          0x8003FFFF
 
-#define  FLASH_UTILS_PAGE_SIZE          4096
 
 typedef enum
 {
@@ -58,7 +57,7 @@ int flash_utils_write_protection_config(flash_utils_wr_protection_t protection);
 * 参数：size        数据大小
 * 返回：0：成功 其他：失败
 */
-int flash_utils_read(char *dest_buffer,const uint32_t src_addr,const uint32_t size);
+int flash_utils_read(uint32_t *dst,const uint32_t addr,const uint32_t size);
 
 
 

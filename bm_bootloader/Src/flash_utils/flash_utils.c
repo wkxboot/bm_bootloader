@@ -191,19 +191,20 @@ int flash_utils_write_protection_config(flash_utils_wr_protection_t protection)
 * 参数：size        数据大小
 * 返回：0：成功 其他：失败
 */
-int flash_utils_read(char *dest_buffer,const uint32_t src_addr,const uint32_t size)
+int flash_utils_read(uint32_t *dst_addr,const uint32_t src_addr,const uint32_t size)
 {
-char *addr;
-uint32_t cnt;
+uint32_t *addr;
+uint32_t i;
 
-if(src_addr + size >= USER_FLASH_END_ADDRESS){
-log_error("flash addr:%d is large than end addr:%d.\r\n",src_addr + size,USER_FLASH_END_ADDRESS);
+if(src_addr + size * 4 > USER_FLASH_END_ADDRESS){
+log_error("flash addr:%d is large than end addr:%d.\r\n",src_addr + size * 4,USER_FLASH_END_ADDRESS);
 return -1;
 }
-addr = (char *)src_addr;
 
-for(cnt = 0; cnt < size; cnt++){
-dest_buffer[cnt] = *(addr + cnt);
+addr = (uint32_t *)src_addr;
+
+for(i = 0; i < size; i ++){
+dst_addr[i] = *(addr + i);
 }
 
 return 0;
