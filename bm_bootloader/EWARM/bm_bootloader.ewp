@@ -357,7 +357,7 @@
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
                     <state>$PROJ_DIR$/../Src/board</state>
                     <state>$PROJ_DIR$/../Src/bootloader</state>
-                    <state>$PROJ_DIR$/../Src/bootloader_env</state>
+                    <state>$PROJ_DIR$/../Src/bootloader_if</state>
                     <state>$PROJ_DIR$/../Src/led</state>
                     <state>$PROJ_DIR$/../Src/flash_utils</state>
                     <state>$PROJ_DIR$/../Src/tm1629a</state>
@@ -1058,9 +1058,15 @@
                 </file>
             </group>
             <group>
-                <name>bootloader_env</name>
+                <name>bootloader</name>
                 <file>
-                    <name>$PROJ_DIR$\..\Src\bootloader_env\bootloader_env.c</name>
+                    <name>$PROJ_DIR$\..\Src\bootloader\bootloader.c</name>
+                </file>
+            </group>
+            <group>
+                <name>bootloader_if</name>
+                <file>
+                    <name>$PROJ_DIR$\..\Src\bootloader_if\bootloader_if.c</name>
                 </file>
             </group>
             <group>
@@ -1094,12 +1100,6 @@
                 <name>led</name>
                 <file>
                     <name>$PROJ_DIR$\..\Src\led\led.c</name>
-                </file>
-            </group>
-            <group>
-                <name>bootloader</name>
-                <file>
-                    <name>$PROJ_DIR$\..\Src\bootloader\bootloader.c</name>
                 </file>
             </group>
             <group>
