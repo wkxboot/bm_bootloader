@@ -93,13 +93,18 @@ bootloader_env_status_t status;       /*环境参数状态*/
 /******************************************************************************/
 /*             bootloader 接口                                                */
 /******************************************************************************/
-
-/*名称：bootloader_if_init
-* 功能：bootloader接口初始化
-* 参数：无
+/*名称：bootloader_init
+* 功能：初始化
 * 返回：0：成功 其他：失败
 */
-int bootloader_if_init();
+int bootloader_init();
+
+/*名称：bootloader_boot_bootloader
+* 功能：启动bootloader
+* 参数：无
+* 返回：无
+*/
+void bootloader_boot_bootloader();
 
 /*名称：bootloader_boot_user_application
 * 功能：启动用户区APP
@@ -151,6 +156,7 @@ int bootloader_save_env(bootloader_env_t *env);
 * 返回：0：成功 其他：失败
 */
 int bootloader_write_fw(uint32_t fw_dest_addr,uint32_t fw_src_addr,uint32_t size);
+
 
 /*名称：bootloader_update_user_app
 * 功能：更新用户APP

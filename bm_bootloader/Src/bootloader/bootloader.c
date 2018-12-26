@@ -50,64 +50,54 @@ void bootloader(void)
   /*刷新到芯片*/
  led_display_refresh();
   
- if(bootloader_if_init() != 0){
-    bootloader_reset();   
+ if(bootloader_init() != 0){
+    goto err_exit;   
   }
  
  if(bootloader_disable_wr_protection() != 0){
-    bootloader_reset();   
+    goto err_exit;   
   }
    
-  /*读取ENV参数*/ 
+  /*读取当前env*/ 
   log_debug("bootloader read env.\r\n");
-  rc = bootloader_get_env(&env);
-  
+  rc = bootloader_get_env(&env); 
   /*执行失败 重启*/
-  if(rc != 1 && rc != 0){
-     bootloader_reset();      
+  if(rc != 0){
+     goto err_exit;        
   }
   
-  /*不存在ENV参数*/
-  if(rc == 1){
-     log_warning("bootloader has no env. init env.\r\n");
+  /*正常启动程序*/
+  if(env.boot_flag == BOOTLOADER_FLAG_BOOT_NORMAL){
+     log_debug("bootloader no update.boot normal.\r\n");
+     bootloader_boot_user_application(); 
+   }
+ 
+  /*需要更新程序*/
+  if(env.boot_flag == BOOTLOADER_FLAG_BOOT_UPDATE){
+     log_debug("bootloader need update.\r\n");
+     if(bootloader_update_user_app(&env) != 0){
+        goto err_exit;
+     }
+     log_debug("done.\r\n");
+     /*执行用户程序*/
+     bootloader_boot_user_application(); 
+  }
+ 
+  /*升级成功，设置启动标志为正常*/
+  if(env.boot_flag == BOOTLOADER_FLAG_BOOT_UPDATE_OK){
+     log_debug("bootloader set boot flag to normal.\r\n");
      env.boot_flag = BOOTLOADER_FLAG_BOOT_NORMAL;
      if(bootloader_save_env(&env) != 0){
-        bootloader_reset(); 
-     }   
-    bootloader_boot_user_application();     
-  }
-  
-  /*存在ENV参数*/
- if(rc == 0){   
-    /*正常启动程序*/
-    if(env.boot_flag == BOOTLOADER_FLAG_BOOT_NORMAL)
-    {
-        log_debug("bootloader no update.boot normal.\r\n");
-        bootloader_boot_user_application(); 
-    }
+        goto err_exit; 
+      }
+     log_debug("done.\r\n");
+     /*执行用户程序*/
+     bootloader_boot_user_application(); 
+   }
  
-    /*需要更新程序*/
-    if(env.boot_flag == BOOTLOADER_FLAG_BOOT_UPDATE)
-    {
-        log_debug("bootloader need update.\r\n");
-        bootloader_update_user_app(&env);
-        log_debug("done.\r\n");
-        /*执行用户程序*/
-        bootloader_boot_user_application(); 
-    }
- 
-    /*升级成功，设置启动标志为正常*/
-    if(env.boot_flag == BOOTLOADER_FLAG_BOOT_UPDATE_OK)
-    {
-        log_debug("bootloader set boot flag to normal.\r\n");
-        env.boot_flag = BOOTLOADER_FLAG_BOOT_NORMAL;
-        if(bootloader_save_env(&env) != 0){
-        bootloader_reset(); 
-        }
-        log_debug("done.\r\n");
-        /*执行用户程序*/
-        bootloader_boot_user_application(); 
-    }
- }
- 
+err_exit:
+  bootloader_enable_wr_protection();
+  bootloader_reset();
+  while(1);
 }
+
