@@ -38,7 +38,7 @@ uint32_t flash_utils_erase(uint32_t start_addr,uint32_t size)
   HAL_FLASH_Unlock();
 
   /* Get the sector where start the user flash area */
-  NbrOfPages = size / FLASH_PAGE_SIZE;
+  NbrOfPages = size % FLASH_PAGE_SIZE == 0 ? size / FLASH_PAGE_SIZE : (size / FLASH_PAGE_SIZE) + 1;
 
   pEraseInit.TypeErase = FLASH_TYPEERASE_PAGES;
   pEraseInit.PageAddress = start_addr;
