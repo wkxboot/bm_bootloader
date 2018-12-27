@@ -46,38 +46,6 @@ void bootloader_boot_user_application()
   while(1);
 }
 
-
-/*名称：bootloader_boot_bootloader
-* 功能：应用程序启动bootloader
-* 参数：无
-* 返回：无
-*/
-void bootloader_boot_bootloader()
-{
- uint32_t bootloader_msp;
- uint32_t bootloader_addr;
- 
- /*初始化栈指针*/
- bootloader_msp = *(uint32_t*)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_BOOTLOADER_ADDR_OFFSET);
-  
- /*获取用户APP地址和栈指针*/
- bootloader_addr = *(uint32_t*)(BOOTLOADER_FLASH_BASE_ADDR + BOOTLOADER_FLASH_BOOTLOADER_ADDR_OFFSET + 4);
- application_func = (application_func_t)bootloader_addr;
- log_warning("boot bootloader --> addr:0x%X stack:0x%X....\r\n",application_func,bootloader_msp);
- /*等待日志输出完毕*/
- HAL_Delay(500);
- /*跳转*/
- //__disable_irq();
- /*设置MSP*/
- __set_MSP(bootloader_msp);
- /*使用MSP*/
- __set_CONTROL(0);
- application_func();  
-  
-  while(1);
- }
- 
-
 /*名称：bootloader_reset
 * 功能：应用程序复位
 * 参数：无

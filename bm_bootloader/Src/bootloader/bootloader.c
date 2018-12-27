@@ -50,15 +50,15 @@ void bootloader(void)
  
   /*刷新到芯片*/
  led_display_refresh();
+ /*解除写保护*/
+ if(bootloader_disable_wr_protection() != 0){
+    goto err_exit;   
+  }
   
  if(bootloader_init() != 0){
     goto err_exit;   
   }
  
- if(bootloader_disable_wr_protection() != 0){
-    goto err_exit;   
-  }
-   
   /*读取当前env*/ 
   log_debug("bootloader read env.\r\n");
   rc = bootloader_get_env(&env); 

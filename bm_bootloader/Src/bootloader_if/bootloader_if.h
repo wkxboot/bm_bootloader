@@ -23,7 +23,7 @@
 #define  BOOTLOADER_FLASH_SWAP_BLOCK_SIZE                (0x5000)
 
 
-#define  BOOTLOADER_RESET_LATER_TIME                     5        /*复位延时 单位：秒*/
+#define  BOOTLOADER_RESET_LATER_TIME                     3        /*复位延时 单位：秒*/
 
 typedef enum
 {
