@@ -58,7 +58,7 @@ char value[36];
 
 typedef struct
 {
-char value[4];
+uint32_t  code;
 }bootloader_fw_version_t;
 
 
@@ -81,7 +81,7 @@ uint32_t                size;
 typedef struct
 {
 bootloader_flag_t       boot_flag;    /*启动标志*/
-uint32_t                reserved[32]; /*保留32个参数，供应用程序使用*/
+uint32_t                reserved[16]; /*保留16个参数，供应用程序使用*/
 bootloader_fw_t         fw_update;    /*更新的固件*/
 bootloader_fw_t         fw_origin;    /*原有的固件*/
 bootloader_swap_ctrl_t  swap_ctrl;    /*数据交换控制*/
