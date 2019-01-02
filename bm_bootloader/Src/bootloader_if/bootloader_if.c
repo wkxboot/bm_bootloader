@@ -303,10 +303,6 @@ int bootloader_init()
   if(env_bank1.status != BOOTLOADER_ENV_STATUS_VALID && env_bank2.status != BOOTLOADER_ENV_STATUS_VALID){  
      /*把默认env写入bank1区域第一个位置*/
      log_debug("firt boot.\r\n");
-     rc = bootloader_erase_bank1();
-     if(rc != 0){
-        return -1;
-     }
      rc = bootloader_write_bank1_env(0,&default_env);
      if(rc != 0){
         log_error("write bank1 offset addr:0x%X err.\r\n",0);  
