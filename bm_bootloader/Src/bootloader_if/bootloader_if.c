@@ -15,7 +15,6 @@ static bootloader_env_t default_env = {
 .status = BOOTLOADER_ENV_STATUS_VALID,
 .swap_ctrl.step = SWAP_STEP_INIT,
 .fw_origin.size = BOOTLOADER_FLASH_USER_APPLICATION_SIZE,
-.fw_origin.version.code = 10
 };
 
 static application_func_t application_func;
@@ -301,8 +300,14 @@ int bootloader_init()
   }
   
   if(env_bank1.status != BOOTLOADER_ENV_STATUS_VALID && env_bank2.status != BOOTLOADER_ENV_STATUS_VALID){  
+    
      /*把默认env写入bank1区域第一个位置*/
      log_debug("firt boot.\r\n");
+      /*第一次启动，擦除bank1*/
+     rc = bootloader_erase_bank1();
+     if(rc != 0){
+        return -1;
+     }
      rc = bootloader_write_bank1_env(0,&default_env);
      if(rc != 0){
         log_error("write bank1 offset addr:0x%X err.\r\n",0);  
