@@ -197,14 +197,14 @@ uint32_t *addr;
 uint32_t i;
 
 if(src_addr + size * 4 > USER_FLASH_END_ADDRESS){
-log_error("flash addr:%d is large than end addr:%d.\r\n",src_addr + size * 4,USER_FLASH_END_ADDRESS);
-return -1;
+   log_error("flash addr:%d is large than end addr:%d.\r\n",src_addr + size * 4,USER_FLASH_END_ADDRESS);
+   return -1;
 }
 
 addr = (uint32_t *)src_addr;
 
 for(i = 0; i < size; i ++){
-dst_addr[i] = *(addr + i);
+   dst_addr[i] = *(addr + i);
 }
 
 return 0;

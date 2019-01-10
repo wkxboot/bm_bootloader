@@ -490,7 +490,7 @@ int bootloader_write_fw(uint32_t fw_dest_addr,uint32_t fw_src_addr,uint32_t size
   /*拷贝fw*/
   /*擦除FW区域*/
   log_warning("program fw form addr:0x%X to 0x%X size:%d...\r\n",fw_src_addr,fw_dest_addr,size);
-  log_warning("erase addr:0x%X size:%d...\r\n",fw_src_addr,size);
+  log_warning("erase addr:0x%X size:%d...\r\n",fw_dest_addr,size);
   rc = flash_utils_erase(fw_dest_addr,size); 
   if(rc != 0){
   return -1;

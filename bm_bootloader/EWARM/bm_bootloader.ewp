@@ -302,11 +302,11 @@
                 </option>
                 <option>
                     <name>IExtraOptionsCheck</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IExtraOptions</name>
-                    <state></state>
+                    <state>--no_path_in_file_macros</state>
                 </option>
                 <option>
                     <name>CCLangConformance</name>
@@ -361,7 +361,10 @@
                     <state>$PROJ_DIR$/../Src/led</state>
                     <state>$PROJ_DIR$/../Src/flash_utils</state>
                     <state>$PROJ_DIR$/../Src/tm1629a</state>
+                    <state>$PROJ_DIR$/../Src/serial</state>
+                    <state>$PROJ_DIR$/../Src/circle_buffer</state>
                     <state>$PROJ_DIR$/../Src/debug/log</state>
+                    <state>$PROJ_DIR$/../Src/debug/log/serial_uart</state>
                     <state>$PROJ_DIR$/../Src/debug/log/SEGGER_RTT_V612j/RTT</state>
                 </option>
                 <option>
